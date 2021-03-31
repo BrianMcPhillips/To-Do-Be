@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS lists;
+
+CREATE TABLE lists (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL,
+  type TEXT NOT NULL,
+  priority INT CHECK (priority > 0),
+  complete BOOLEAN NOT NULL
+);
