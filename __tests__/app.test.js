@@ -77,4 +77,24 @@ describe('To Do List routes', () => {
     });
   });
 
+  it('deletes a list by id via DELETE', async() => {
+    const createdList = await List.insert({
+      name: 'dishes',
+      type: 'chore',
+      priority: 6,
+      complete: true
+    });
+
+    const response = await request(app)
+      .delete(`/api/v1/lists/${createdList.id}`);
+
+    expect(response.body).toEqual({
+      id: createdList.id,
+      name: 'dishes',
+      type: 'chore',
+      priority: 6,
+      complete: true
+    });
+  });
+
 });
