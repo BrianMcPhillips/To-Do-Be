@@ -48,4 +48,33 @@ describe('To Do List routes', () => {
       complete: false
     });
   });
+
+  it('updates a list by id via PATCH', async() => {
+    const listItem = await List.insert({
+      name: 'dishes',
+      type: 'chore',
+      priority: 10,
+      complete: false
+    });
+
+    const updatedList = {
+      name: 'do dishes',
+      type: 'chore',
+      priority: 6,
+      complete: true
+    };
+
+    const response = await request(app)
+      .patch(`/api/v1/lists/${listItem.id}`)
+      .send(updatedList);
+
+    expect(response.body).toEqual({
+      id: listItem.id,
+      name: 'do dishes',
+      type: 'chore',
+      priority: 6,
+      complete: true
+    });
+  });
+
 });
